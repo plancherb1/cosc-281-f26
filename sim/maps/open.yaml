@@ -1,0 +1,10 @@
+resolution: 0.05
+image: open.png
+origin: [0.0, 0.0]
+start: [1.5, 1.5, 0.0]
+goal: [13.5, 13.5, 1.5707963267948966]
+cones:
+- {x: 3.0, y: 3.0, color: red}
+- {x: 12.0, y: 3.0, color: yellow}
+- {x: 3.0, y: 12.0, color: blue}
+- {x: 12.0, y: 12.5, color: green}

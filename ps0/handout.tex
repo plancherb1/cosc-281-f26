@@ -1,0 +1,513 @@
+\documentclass[11pt]{article}
+\newcommand{\coursedocname}{Problem Set 0}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx, booktabs, enumitem, float, framed, caption, multirow}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{needspace}
+\IfFileExists{algorithm.sty}{%
+  \usepackage{algorithm}
+  \usepackage[noend]{algpseudocode}
+  \newcommand{\hasalgorithms}{}%
+}{}
+\usepackage{amsmath,amssymb,bm,xcolor}
+
+
+
+
+\newcommand{\lr}{\alpha}                %
+
+\newcommand{\E}{\mathbb{E}}             %
+\newcommand{\Var}{\mathrm{Var}}        %
+
+\usepackage{hyperref}
+
+\definecolor{DartmouthGreen}{HTML}{00693E}
+\newcommand{\dgreen}[1]{\textcolor{DartmouthGreen}{#1}}
+\newcommand{\dgbf}[1]{\textbf{\dgreen{#1}}}      %
+\urlstyle{same}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=DartmouthGreen,
+    filecolor=DartmouthGreen,
+    citecolor=DartmouthGreen,
+    urlcolor=DartmouthGreen,
+    breaklinks=true
+}
+
+\newcommand{\coursenumber}{COSC 81/281}
+\newcommand{\courseterm}{Fall 2026}
+\newcommand{\gradescopelink}{\textbf{Gradescope} (\url{https://www.gradescope.com/courses/1372528})}
+
+\newcommand{\psZeroDue}{Tuesday, September 22 (11:59pm ET)}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\headheight}{13.6pt}
+\setlength{\emergencystretch}{3em}
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+
+\DeclareRobustCommand{\callout}[2][gray!10]{%
+  \begin{tcolorbox}[left=8pt, arc=0pt, outer arc=0pt,
+                    colframe=#1, colback=#1, coltext=black]#2\end{tcolorbox}}
+
+
+
+
+\newcommand{\gradstar}{$\bigstar$~\textsf{\small (required for 281; optional for 81)}~}
+\newcommand{\bonusq}{\textsf{\small\textbf{[Bonus]}}~}
+\newcommand{\bonus}{\bonusq}
+
+\newcommand{\setupheader}[1]{%
+  \fancypagestyle{default}{%
+      \lhead{#1}
+      \chead{}
+      \rhead{\textbf{\coursenumber}}
+      \lfoot{}
+      \cfoot{}
+      \rfoot{\thepage}
+      \renewcommand{\headrulewidth}{0.4pt}
+      \renewcommand{\footrulewidth}{0.4pt}
+  }
+  \pagestyle{default}
+  \fancypagestyle{plain}{\pagestyle{default}}
+}
+\newcommand{\setupexamheader}[1]{%
+  \fancypagestyle{default}{%
+      \lhead{#1}
+      \chead{Name:}
+      \rhead{}
+      \lfoot{}
+      \cfoot{}
+      \rfoot{\thepage}
+      \renewcommand{\headrulewidth}{0.4pt}
+      \renewcommand{\footrulewidth}{0.4pt}
+  }
+  \pagestyle{default}
+  \fancypagestyle{plain}{\pagestyle{default}}
+}
+\newcommand{\pstitle}[2]{%
+  \title{\textbf{\coursenumber:} #1}
+  \author{\textbf{Due} #2\\
+  }
+  \date{}
+}
+
+\newcommand{\coursenotice}{%
+  \callout{Problem sets are graded \textbf{pass/fail on completion}, and
+  there are no late days. The problem sets are where the learning happens,
+  and they are the best available practice for the midterm and final exam.
+  Submit to \gradescopelink\ and assign each question to a page in your
+  submission. Questions are welcome on \dgbf{Slack}. Starred ($\bigstar$)
+  questions are required for COSC 281 students and optional (ungraded) for
+  COSC 81 students.}}
+
+\lstset{
+  language=python,
+  basicstyle=\ttfamily,
+  commentstyle=\color{BrickRed},
+  stringstyle=\color{ForestGreen},
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=true,
+  keywordstyle=\color{Purple},
+  emph={def},
+  emphstyle=\color{RoyalBlue}
+}
+\lstnewenvironment{itemlisting}[1][]
+ {\mbox{}\vspace*{-\baselineskip}%
+  \lstset{xleftmargin=\leftmargin, linewidth=\linewidth, #1}}
+ {}
+
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\ifdefined\hasalgorithms
+\fi
+
+\newcommand{\docfooter}{\vfill\begin{tiny}Updated \today\end{tiny}}
+
+
+\setupheader{\coursenumber\ -- \courseterm\ -- \coursedocname}
+\pstitle{Problem Set 0: Setup and Mathematical Preliminaries}{\psZeroDue}
+
+
+% Type an answer below each SOLUTION HERE marker. Increase the height argument
+% on that studentanswer environment if additional space is required.
+\newenvironment{studentanswer}[1]
+  {\par\noindent\begin{minipage}[t][#1][t]{\linewidth}\ignorespaces}
+  {\end{minipage}\par}
+
+\begin{document}
+\maketitle
+\coursenotice
+\begin{quote}\small\textbf{AI Policy.} You may use any AI tools you like to assist you with your assignments, and you should, as that is likely how you will work for the rest of your career. 
+That being said, the written portions are practice for the in-class midterm and exam, which are closed book and on paper. You should strive to answer these yourself and use AI as a tutor and not an oracle.
+\end{quote}
+
+\callout{Please include an AI Tool Disclosure Below \vspace{50pt}}
+
+\newpage
+\section*{Overview}
+This problem set has two goals. First, it reviews the mathematical foundations used throughout the course: linear algebra, basic probability, and derivatives. Second, it walks you through installing the course software environment and confirms that the simulator and testing tools run correctly on your machine.
+This is intentionally the lightest problem set of the term. If any single step, and in particular the software install, takes you more than an hour, please stop and ask for help on \dgbf{Slack} rather than continuing to struggle alone.
+
+\callout{\textbf{Review resources.} If a written problem below feels rusty,
+we encourage you to review the underlying material before grinding through
+the problem. The following free resources are matched to the parts of this
+assignment: 3Blue1Brown's \emph{Essence of Linear Algebra} and \emph{Essence
+of Calculus} video series on YouTube (Parts 1 and 3), Khan
+Academy's probability unit (Part 2),
+\href{https://immersivemath.com}{immersivemath.com} for interactive linear
+algebra, and the free textbook \emph{Mathematics for Machine Learning}
+(\href{https://mml-book.github.io}{mml-book.github.io}, Ch 2, 5, 6) as deeper reference.
+PS0 is half problem set and half tutorial: the released solutions state each
+rule before using it and link to further material.}
+
+\vspace{10pt}
+\textbf{What to submit.} Submit to \gradescopelink:\vspace{-10pt}
+\begin{enumerate}\tightlist
+\item \textbf{Written work (PDF)}: your answers to Part 1 and the C1
+      trajectory image and observations. Space is
+      provided below each problem; you may print this handout and write in
+      it, annotate the PDF on a tablet, or use the provided
+      \texttt{ps0/handout.tex}: enter each answer below its
+      \texttt{\%\%\%\%\% SOLUTION HERE \%\%\%\%\%} marker, inside the
+      corresponding \texttt{studentanswer} environment, and compile the file
+      to produce your PDF. Assign each question to a page when you upload.
+\item \textbf{Code}: your completed \texttt{warmup.py} from Part 2. Every
+      test in this problem set is public, so if the autograder passes on
+      your machine it will pass on submission.
+\end{enumerate}
+
+\newpage
+\section*{Part 1: Written problems}
+
+Work each problem on paper, without a calculator; every answer comes out in
+small integers or simple fractions. Show your work in the space provided.
+
+\subsection*{P1: Linear Algebra}
+
+\begin{enumerate}[label=\alph*)]
+
+\item Let $A = \begin{bmatrix} 2 & -1 \\ 0 & 3 \end{bmatrix}$ and $\mathbf{v} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}$. Compute $A\mathbf{v}$.
+
+\begin{studentanswer}{4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item The counterclockwise planar rotation matrix is
+$R(\theta)=\begin{bmatrix}\cos\theta&-\sin\theta\\
+\sin\theta&\cos\theta\end{bmatrix}$. Evaluate $B=R(90^\circ)$.
+Let $A = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}$ be reflection
+across the $x$-axis and let $\mathbf{v} = \begin{bmatrix} 1 \\ 2\end{bmatrix}$.
+Compute $AB\mathbf{v}$ (rotate first, then reflect) and $BA\mathbf{v}$
+(reflect first, then rotate). Do the two results agree? Based on this
+example, is matrix multiplication commutative? Explain what this means about
+the order in which transformations are applied.
+
+\begin{studentanswer}{6cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\end{enumerate}
+
+\newpage
+\subsection*{P2: Probability}
+
+\begin{enumerate}[label=\alph*)]
+\item A discrete random variable $X$ takes value $0$ with probability $\tfrac{1}{2}$, value $2$ with probability $\tfrac{1}{4}$, and value $4$ with probability $\tfrac{1}{4}$. Compute $\E[X]$ and $\E[2X + 1]$.
+
+\begin{studentanswer}{3.4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item A bump sensor beeps with probability $0.9$ when an obstacle is present and with probability $0.3$ when none is. The prior probability of an obstacle is $\tfrac{1}{3}$. The sensor beeps once. Use \href{https://en.wikipedia.org/wiki/Bayes_theorem}{Bayes' rule} to compute the posterior probability that an obstacle is present.
+
+\begin{studentanswer}{3.4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item $X$ takes value $0$ with probability $\tfrac{1}{2}$ and value $2$
+      with probability $\tfrac{1}{2}$. Compute $\E[X]$, $\E[X^2]$, and
+      $\Var[X] = \E[X^2] - \E[X]^2$.
+
+\begin{studentanswer}{3.2cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item Two range sensors fail independently, each with probability
+      $\tfrac{1}{4}$. Compute the probability that both fail, and the
+      probability that at least one fails. Which of the two computations
+      \emph{required} the independence assumption?
+
+\begin{studentanswer}{3.4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\end{enumerate}
+
+\newpage
+\subsection*{P3: Calculus}
+
+\begin{enumerate}[label=\alph*)]
+\item For $f(x, y) = x^2 + 3xy$, compute the gradient
+$\nabla f = \left(\tfrac{\partial f}{\partial x},
+\tfrac{\partial f}{\partial y}\right)$ and evaluate it at $(1, 2)$.
+Then check each component numerically with the central-difference formula
+\[
+\frac{\partial f}{\partial x_i}(\mathbf{x}) \approx
+\frac{f(\mathbf{x}+\epsilon\mathbf{e}_i)-
+f(\mathbf{x}-\epsilon\mathbf{e}_i)}{2\epsilon}
+\]
+using $\epsilon=0.1$.
+Compute both numerical estimates and state whether they agree with your
+analytical gradient.
+
+\begin{studentanswer}{4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item Use the chain rule: for $g(x) = (2x + 1)^2$, compute $g'(x)$ and evaluate $g'(1)$.
+
+\begin{studentanswer}{4cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item Consider the loss function $L(w) = \tfrac{1}{2}(wx - y)^2$ with the single data point $x = 3$, $y = 5$. This is a standard squared-error loss in machine learning. Compute $\tfrac{dL}{dw}$, evaluate it at $w = 2$, and take one gradient descent step $w_1 = w_0 - \lr \tfrac{dL}{dw}(w_0)$ with step size $\lr = 0.1$.
+
+\begin{studentanswer}{5cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\end{enumerate}
+
+\newpage
+\subsection*{P4: Deriving the Normal Equations \gradstar}
+
+The least squares algorithm can be derived directly from the two toolboxes this problem set reviews. Let $A$ be an $m \times n$ matrix of inputs and $\mathbf{b}$ an $m$-vector of targets, and define $f(\mathbf{x}) = \|A\mathbf{x} - \mathbf{b}\|^2$.
+
+\begin{enumerate}[label=\alph*)]
+\item Show that any minimizer satisfies the normal equations $A^\top A\,\mathbf{x} = A^\top \mathbf{b}$.
+
+\begin{studentanswer}{8cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\item In one or two sentences, when is the solution unique?
+
+\begin{studentanswer}{3cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\end{enumerate}
+
+\newpage
+\section*{Part 2: Programming}
+
+The programming part has three steps: install the course software
+environment, run a provided script to confirm the environment works, and
+implement five short functions that mirror the written problems above.
+
+\subsection*{Installing the course environment}
+
+The course code requires \textbf{Python 3.12} and a terminal. The
+instructions below assume no prior experience with either; if you have
+set up Python projects before, the summary is: clone the repository, create a
+virtual environment at its root, and \texttt{pip install -r requirements.txt}.
+
+\textbf{Step 1: get the course code.} The graphical option is GitHub Desktop:
+choose \textbf{File $>$ Clone repository}, select
+\url{https://github.com/plancherb1/cosc-281-f26}, and choose where to keep the
+course folder. From a terminal, the equivalent commands are:
+
+\begin{lstlisting}[language={}]
+git clone git@github.com:plancherb1/cosc-281-f26.git
+cd cosc-281-f26
+\end{lstlisting}
+
+Clone only once. When a new problem set is announced, use
+\textbf{Repository $>$ Pull} in GitHub Desktop or run \texttt{git pull} from
+the course folder. A public fork is not required and should not contain your
+answers.
+
+\textbf{Step 2: open a terminal and check Python and Tk.} Tk is the GUI
+component that opens the driving window; \texttt{pip} cannot install it.
+
+\begin{itemize}\tightlist
+\item \textbf{macOS}: press Cmd-Space, type \texttt{Terminal}, and press
+      return. Check your Python version with \texttt{python3 --version}.
+      If the version is below 3.12 or the command is not found, install
+      Python 3.12 from \url{https://www.python.org/downloads/} (use the
+      macOS universal installer, then close and reopen the terminal). Run
+      \texttt{python3 -m tkinter}; a small window should open. Close it after
+      the check.
+\Needspace{8\baselineskip}
+\item \textbf{Windows}: install Python 3.12 from
+      \url{https://www.python.org/downloads/}. On the first installer
+      screen, \textbf{check the box labeled ``Add python.exe to PATH''}
+      before clicking Install; this is the step most people miss. Then
+      open PowerShell (press the Windows key, type \texttt{PowerShell},
+      press enter) and check \texttt{python --version}. Note that on
+      Windows the command is \texttt{python}, not \texttt{python3}. Then run
+      \texttt{python -m tkinter}. If no small window opens, modify the Python
+      installation and enable \textbf{Tcl/Tk and IDLE}.
+\item \textbf{Linux}: open your terminal application and check
+      \texttt{python3 --version}. On Ubuntu or Debian, install what you
+      need with \texttt{sudo apt install python3 python3-venv
+      python3-tk}. Run \texttt{python3 -m tkinter} and close the small window
+      after it appears.
+\end{itemize}
+
+\textbf{Step 3: navigate to the course folder.} If you used GitHub Desktop,
+open its \textbf{Repository} menu and choose \textbf{Open in Terminal}. You
+can also type \texttt{cd} followed by a space and the path to the cloned
+folder. On most systems you can type \texttt{cd }
+(with the trailing space) and then drag the folder from your file browser
+into the terminal window to fill in the path. Confirm you are in the right
+place: \texttt{ls} (macOS/Linux) or \texttt{dir} (Windows) should list
+\texttt{sim}, \texttt{ps0}, and \texttt{requirements.txt}.
+
+\Needspace{12\baselineskip}
+\textbf{Step 4: create and activate a virtual environment.} A virtual
+environment is a private copy of Python's package installation for this
+course, so nothing here conflicts with anything else on your machine.
+
+\begin{itemize}\tightlist
+\item \textbf{macOS / Linux}:
+\begin{lstlisting}[language={}]
+python3 -m venv --prompt COSC281 .venv
+source .venv/bin/activate
+\end{lstlisting}
+\item \textbf{Windows (PowerShell)}:
+\begin{lstlisting}[language={}]
+python -m venv --prompt COSC281 .venv
+.venv\Scripts\Activate.ps1
+\end{lstlisting}
+      If PowerShell refuses to run the activation script with an error
+      about execution policies, run
+      \texttt{Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope
+      CurrentUser} once, answer yes, and try the activation again.
+\end{itemize}
+
+When activation succeeds, your terminal prompt begins with
+\texttt{(COSC281)}. This confirms that the course environment, rather than
+another project's environment, is active. You must activate it (the second
+command only) in every new terminal window you use for course work.
+
+\textbf{Step 5: install the course packages.}
+
+\begin{lstlisting}[language={}]
+pip install -r requirements.txt
+\end{lstlisting}
+
+This downloads and installs the pinned course packages, including the
+course simulator (\texttt{coursesim}, which lives in \texttt{sim/}; the
+course scripts find it on their own, and there is nothing separate to
+install). It may take a few minutes.
+
+\textbf{Step 6: verify.} Run the public test suite:
+
+\begin{lstlisting}[language={}]
+python ps0/code/autograder.py
+\end{lstlisting}
+
+The three environment tests should pass immediately. The ten
+\texttt{warmup} tests will fail with \texttt{NotImplementedError} until
+you complete C2 below; that is expected at this stage.
+
+If anything above fails, copy the \emph{entire} error message and post it
+on Slack along with your operating system. Installation problems are
+normal, they are fastest to fix with the full error text, and helping you
+through them is exactly what week one is for.
+
+\Needspace{15\baselineskip}
+\subsection*{C1: Drive the car and plot the trajectory}
+
+\textbf{Where to answer: your written-work PDF.} If you use the editable
+TeX handout, place the image and observations inside the C1
+\texttt{studentanswer} environment.
+
+With the environment activated, run the teleoperation script:
+
+\begin{lstlisting}[language={}]
+python ps0/code/teleop_drive.py --map sim/maps/open.yaml \
+    --out ps0/figures/ps0_teleop.png
+\end{lstlisting}
+
+A window opens showing a small car on an open map. Drive it with the arrow
+keys (or WASD) for at least 20 seconds of simulated time, then press
+\texttt{q} to quit. The script saves \texttt{ps0\_teleop.png}, an image of
+the trajectory you drove drawn over the map. This script requires a
+display; if you work over ssh, use \texttt{ssh -X} or run locally. If no
+window opens, do not use a scripted trajectory as your answer; follow the
+installation fix printed by the command and retry until you can drive
+interactively.
+
+Include the image in your PDF along with two or three sentences of
+observation: what motions could the car execute and what motions could it
+not (try to turn in place), and one thing about its behavior that you did
+not expect. The purpose of this task is to confirm that your environment
+works end to end and to give you direct experience with the car's steering
+constraint.
+
+If you use the editable TeX handout, the image can be inserted at the C1
+marker with:
+\begin{lstlisting}[language={}]
+\includegraphics[width=0.8\linewidth]{ps0/figures/ps0_teleop.png}
+\end{lstlisting}
+Write your two or three sentences below the image command.
+
+\begin{studentanswer}{8cm}
+%%%%% SOLUTION HERE %%%%%
+\end{studentanswer}
+
+\Needspace{24\baselineskip}
+\subsection*{C2: Five warmup functions}
+
+\textbf{Where to answer: \texttt{warmup.py}.} Write these implementations in
+the provided Python file and upload that file as the code submission. Do not
+paste the implementations into the written-work PDF.
+
+The file \texttt{ps0/code/warmup.py} contains five function
+stubs. Each is the computational counterpart of a specific written problem.
+The docstring above each stub gives its contract, formula, and matching
+paper example. Read that contract before writing the function.
+
+\begin{itemize}\tightlist
+\item \texttt{matvec(A, v)} implements P1(a). Use two explicit nested loops.
+      You may use NumPy to convert the inputs, inspect their shapes, and
+      allocate the output, but multiplication and accumulation must be scalar
+      operations inside your loops. Do not use \texttt{@}, \texttt{np.dot},
+      \texttt{np.matmul}, \texttt{np.einsum}, or another routine that computes
+      the product for you.
+\item \texttt{rot2d(theta)} constructs the rotation matrix from P1(b), with
+      \texttt{theta} expressed in radians.
+\item \texttt{expectation(values, probs)} generalizes the sum in P2(a).
+\item \texttt{bayes\_posterior(...)} generalizes the update in P2(b).
+\item \texttt{central\_diff\_grad(f, x, eps)} implements the numerical
+      check in P3(a), one coordinate at a time.
+\end{itemize}
+
+Check your work by re-running the autograder:
+
+\begin{lstlisting}[language={}]
+python ps0/code/autograder.py
+\end{lstlisting}
+
+All thirteen tests pass when the environment and your five functions are
+correct. Every test in this problem set is public: there are no hidden
+tests, so a passing run on your machine is a passing run on Gradescope.
+Submit \texttt{warmup.py} (the only file you edit) along with your PDF.
+
+\docfooter
+\end{document}
