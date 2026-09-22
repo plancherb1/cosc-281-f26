@@ -1,0 +1,14 @@
+{
+  "open": {
+    "path_cost": 480,
+    "nodes_expanded": 481
+  },
+  "maze": {
+    "path_cost": 480,
+    "nodes_expanded": 607
+  },
+  "narrow": {
+    "path_cost": 316,
+    "nodes_expanded": 7434
+  }
+}

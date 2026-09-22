@@ -1,0 +1,10 @@
+resolution: 0.05
+image: maze.png
+origin: [0.0, 0.0]
+start: [1.5, 1.5, 0.0]
+goal: [13.5, 13.5, 1.5707963267948966]
+cones:
+- {x: 2.0, y: 12.0, color: red}
+- {x: 7.5, y: 1.0, color: yellow}
+- {x: 13.5, y: 9.4, color: blue}
+- {x: 10.5, y: 13.5, color: green}

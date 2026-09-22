@@ -1,0 +1,9 @@
+resolution: 0.05
+image: narrow.png
+origin: [0.0, 0.0]
+start: [2.0, 7.5, 0.0]
+goal: [13.0, 7.5, 0.0]
+cones:
+- {x: 2.0, y: 2.0, color: red}
+- {x: 10.0, y: 3.0, color: yellow}
+- {x: 12.5, y: 12.0, color: blue}
