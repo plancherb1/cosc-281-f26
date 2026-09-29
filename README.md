@@ -84,13 +84,23 @@ terminal. Each handout gives the exact commands and submission files for that
 assignment. If setup fails, ask on Slack and include the complete error
 message and your operating system.
 
-## Start PS0
+## Work on a problem set
 
-Read `ps0/handout.pdf`, then run:
+Open the newest released `psN/handout.pdf` and follow its submission list.
+Run that problem set's public tests from the repository root. For example,
+for PS0:
 
 ```bash
 python ps0/code/autograder.py
 ```
 
-The environment tests should pass immediately. The implementation tests fail
-until you complete the five functions in `ps0/code/warmup.py`.
+Untouched starter implementations are expected to fail their implementation
+tests. Environment and import checks should pass immediately.
+
+## Midterm practice
+
+When released, `midterm-practice/` has the same layout as a problem set.
+Open `midterm-practice/handout.pdf` for the written questions and programming
+exercise. It is an untimed collection of optional practice, not an additional
+PS2 submission. Use `python midterm-practice/code/autograder.py` to check the
+learning implementations. Worked solutions are distributed separately.
