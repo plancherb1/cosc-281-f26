@@ -1,0 +1,8 @@
+resolution: 0.05
+image: corridor.png
+origin: [0.0, 0.0]
+start: [1.5, 1.5, 0.0]
+goal: [16.5, 1.5, 0.0]
+cones:
+- {x: 17.0, y: 0.9, color: red}
+- {x: 17.0, y: 2.1, color: blue}
